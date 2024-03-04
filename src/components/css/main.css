@@ -1,0 +1,193 @@
+.intro {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px;
+    padding-right: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    padding: 20px 100px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    position: relative;
+    max-width: 130px;
+    padding: 10px;
+}
+
+#logo {
+    min-width: 80px;
+}
+
+header ul {
+    position: relative;
+    display: flex;
+}
+
+header ul li {
+    list-style: none;
+}
+
+header ul li a {
+    display: inline-block;
+    color: #333;
+    font-weight: 400;
+    font-size: 1.4em;
+    margin-left: 40px;
+    text-decoration: none;
+}
+
+.content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -90px;
+}
+
+.content .textBox {
+    position: relative;
+    width: 50%;
+}
+
+.content .textBox h2 {
+    color: #333;
+    font-size: 4.5em;
+    line-height: 1.4em;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.content .textBox h2 span {
+    color: #73b097;
+    font-size: 1.2em;
+    font-weight: 900;
+}
+
+.content .textBox p {
+    color: #333;
+    font-size: 1.3em;
+}
+
+.content .textBox a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 20px;
+    background: #72ae95;
+    color: #fff;
+    border-radius: 40px;
+    font-weight: 500;
+    font-size: 1.6em;
+    letter-spacing: 1px;
+    text-decoration: none;
+    margin-right: 15px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.content .textBox a:hover {
+    transform: scale(1.05);
+}
+
+.content .imgBox {
+    width: 45%;
+    display: flex;
+    margin-top: 50px;
+}
+
+.content .imgBox img {
+    width: 100%;
+}
+
+.circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #73b097;
+    clip-path: circle(725px at right 850px);
+}
+
+footer {
+    background-color: #73b097;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+@media(width < 1300px) {
+    .intro {
+        padding: 100px 0;
+        padding-bottom: 0;
+    }
+
+    header {
+        padding: 0 10px;
+    }
+
+    .content {
+        flex-direction: column;
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .content .textBox {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .content .textBox h2 {
+        font-size: 3.5em;
+        margin: 0;
+    }
+
+    .content .imgBox {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media(width < 875px) {
+    .circle{
+        display: none;
+    }
+}
+
+@media(width < 525px){
+
+    .content{
+        margin-top: -40px;
+    }
+
+    .content .imgBox{
+        margin-top: 0;
+    }
+    
+    .content .textBox h2{
+        font-size: 2em;
+    }
+
+    .content .textBox p{
+        font-size: 0.9em;
+        margin: 0;
+    }
+}

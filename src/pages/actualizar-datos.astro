@@ -1,0 +1,221 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<script>
+  const form = document.querySelector("#form") as HTMLFormElement;
+  const alert = document.querySelector(".falseValidation") as HTMLDivElement;
+  const eye = document.querySelectorAll(".icon-tabler-eye");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (form.password.value === "" || form.validate.value === "") {
+      alert.style.display = "block";
+      alert.innerHTML = "⚠️ Rellena los campos";
+    } else if (form.password.value != form.validate.value) {
+      alert.style.display = "block";
+      alert.innerHTML = "⚠️ Las contraseñas no coinciden";
+    } else {
+      alert.style.display = "none";
+      let pass = new FormData();
+      pass.append("password", form.password.value);
+      pass.append("email", localStorage.getItem("email"));
+      pass.append("code", localStorage.getItem("code"));
+      fetch("http://localhost:8000/api/updatePassword", {
+        method: "post",
+        body: pass,
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          if (data.message == "success") {
+            localStorage.clear();
+            form.submit();
+          }
+          if (data.message == "error") {
+            alert.style.display = "block";
+            alert.innerHTML = "⚠️ Ha ocurrido un error";
+          } else if (data.message.password) {
+            alert.style.display = "block";
+            alert.innerHTML =
+              "⚠️ La contraseña no puede ser igual a la anterior";
+          }
+        });
+    }
+  });
+
+  eye.forEach((element: HTMLElement) => {
+    element.addEventListener("click", () => {
+      element.classList.toggle("visible");
+      let input = element.previousElementSibling as HTMLInputElement;
+      if (element.classList.contains("visible")) {
+        element.style.color = "#d1d1d1";
+        input.type = "text";
+      } else {
+        element.style.color = "#000000";
+        input.type = "password";
+      }
+    });
+  });
+</script>
+
+<Layout title="Actualizar datos">
+  <main>
+    <div class="falseValidation"></div>
+    <form action="/login" class="inputView" id="form" method="post" novalidate>
+      <label for="password">Ingresa tu nueva cotraseña</label>
+      <div>
+        <input
+          type="password"
+          autocomplete="on"
+          name="password"
+          id="password"
+        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon-tabler-eye"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+            d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path><path
+            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+          ></path></svg
+        >
+      </div>
+      <label for="validate">Vuelve a ingresar nueva cotraseña</label>
+      <div>
+        <input
+          type="password"
+          autocomplete="on"
+          name="validate"
+          id="validate"
+        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon-tabler-eye"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+            d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path><path
+            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+          ></path></svg
+        >
+      </div>
+    </form>
+    <button type="submit" form="form">Cambiar contraseña</button>
+  </main>
+</Layout>
+
+<style>
+  body {
+    background-color: #72ae95;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 720px;
+    background-color: #fff;
+    border-radius: 3.3rem;
+    margin: 20px;
+    padding: 50px;
+    padding-top: 20px;
+    box-shadow: 0 60px 30px -50px rgba(0, 0, 0, 0.2);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  form div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  div svg {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+  }
+
+  .falseValidation {
+    display: none;
+    position: relative;
+    width: 100%;
+    padding: 12px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 1.4em;
+    opacity: 1;
+    margin: 10px 0 0 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  label {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 20px 0;
+  }
+
+  input {
+    background-color: #f0f0f0;
+    width: 90%;
+    border: none;
+    outline: none;
+    height: 70px;
+    border-radius: 50px;
+    padding: 20px;
+    font-size: 1.8em;
+    color: #585858;
+  }
+
+  button {
+    background-color: #72ae95;
+    border: none;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 1.6em;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  button:hover {
+    background-color: #5e927c;
+  }
+
+  @media (width < 535px) {
+    body {
+      font-size: 10px;
+    }
+    main {
+      padding: 15px;
+      border-radius: 2rem;
+    }
+  }
+</style>

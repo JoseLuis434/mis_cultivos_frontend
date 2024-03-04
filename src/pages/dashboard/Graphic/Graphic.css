@@ -1,0 +1,26 @@
+.graph {
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.graph span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+}
+
+.graphicCircle {
+    transition: all 0.5s;
+    fill: none;
+    stroke: #f0f0f0;
+    stroke-width: 40;
+    transform: rotate(-90deg);
+    transform-origin: 50%;
+    stroke-linecap: round;
+    stroke-dasharray: 100 100;
+}

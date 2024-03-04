@@ -1,0 +1,26 @@
+---
+export const prerender = false;
+import Layout from "../../layouts/Layout.astro";
+import { ControlFarm } from "./ControFarm/ControlFarm";
+import { Dashboard } from "./Dashboard";
+const { id } = Astro.params;
+const name = convert(id);
+function convert(cadena: string) {
+  cadena = cadena.replace("-", " ");
+  return cadena.charAt(0).toUpperCase() + cadena.slice(1);
+}
+---
+
+<Layout title={`${name}`}>
+  <Dashboard client:only>
+    <ControlFarm
+      client:only
+      name={"Plantío Jitomates"}
+      location={"Luis Quintero, Victor Kuri #33"}
+      days={30}
+      stage={"Cotiledones"}
+      type={"Tomate rojo"}
+      date={"01/02/2024"}
+    />
+  </Dashboard>
+</Layout>
